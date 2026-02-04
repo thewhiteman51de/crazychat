@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CrazyChat Icon Generator</title>
+</head>
+
+<body>
+    <canvas id="canvas192" width="192" height="192"></canvas>
+    <canvas id="canvas512" width="512" height="512"></canvas>
+    <br>
+    <a id="download192" download="icon-192.png">Download 192x192</a>
+    <br>
+    <a id="download512" download="icon-512.png">Download 512x512</a>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+
+            // Background - white with rounded corners
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, size, size);
+
+            // Chat bubble
+            const bubbleSize = size * 0.6;
+            const bubbleX = size * 0.2;
+            const bubbleY = size * 0.15;
+
+            ctx.fillStyle = '#25D366';
+            ctx.beginPath();
+            ctx.roundRect(bubbleX, bubbleY, bubbleSize, bubbleSize * 0.7, size * 0.08);
+            ctx.fill();
+
+            // Bubble tail
+            ctx.beginPath();
+            ctx.moveTo(bubbleX + bubbleSize * 0.15, bubbleY + bubbleSize * 0.7);
+            ctx.lineTo(bubbleX, bubbleY + bubbleSize * 0.85);
+            ctx.lineTo(bubbleX + bubbleSize * 0.25, bubbleY + bubbleSize * 0.7);
+            ctx.fill();
+
+            // Three dots in bubble
+            const dotRadius = size * 0.04;
+            const dotY = bubbleY + bubbleSize * 0.35;
+            ctx.fillStyle = '#FFFFFF';
+
+            for (let i = 0; i < 3; i++) {
+                const dotX = bubbleX + bubbleSize * (0.25 + i * 0.25);
+                ctx.beginPath();
+                ctx.arc(dotX, dotY, dotRadius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        // Draw 192x192
+        const canvas192 = document.getElementById('canvas192');
+        drawIcon(canvas192, 192);
+        document.getElementById('download192').href = canvas192.toDataURL('image/png');
+
+        // Draw 512x512
+        const canvas512 = document.getElementById('canvas512');
+        drawIcon(canvas512, 512);
+        document.getElementById('download512').href = canvas512.toDataURL('image/png');
+    </script>
+</body>
+
+</html>
